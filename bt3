@@ -1,0 +1,25 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.0;
+
+contract Bank{
+    uint256 public balance=0;
+    address public accowner;
+
+    constructor(){
+        accowner=msg.sender;
+    }
+
+    function deposite() public payable {
+        require(accowner==msg.sender, "not owner");
+        require(msg.value>0, "no balance");
+        balance+=msg.value;
+    }
+    function withdraw() public payable{
+        require(accowner==msg.sender, "not owner");
+        require(msg.value>0, "insufficient balance");
+        balance-=msg.value;
+    }
+    function getbalance() public view returns(uint256){
+        return balance;
+    }
+    }
